@@ -31,14 +31,15 @@ git stash list 这个指令查看现在 statsh 列表
 git stash pop 这个指令会将缓存堆栈中的第一个 stash 删除，并将对应修改应用到当前的工作目录下
 
 ------------------> 5 git 合并多个 Commit <-----------------------
-
+git rebase -i
 合并多个 Commit
-git rebase -i 2dfbc7e8 // -i 的参数: 2dfbc7e8 是不需要合并的 commit 的 hash 值，
-//这里指的是第一条 commit， 接着我们就进入到 vi 的编辑模式
-当前我们只要知道 pick 和 squash 这两个命令即可。
-pick 的意思是要会执行这个 commit
-squash 的意思是这个 commit 会被合并到前一个 commit
-我们将 c4e858b5 这个 commit 前方的命令改成 squash 或 s，然后输入:wq 以保存并退出
+那么 git rebase -i 后面跟的参数应该是想要合并的最前面 commit id 的**\_上一个**
+git log 查看 commit id
+输入完成会弹出以下框，这里选择基于最早的 pick 合并，合并到最早的（ec6c077d9e one）合并，其他都合并到前面的 commit id 去
+第一个 pick,其他 s 修改成以下然后保存（意思就是把下面的三个 commit 合并到 one）
+esc:退出编辑 :wq 退出
+添加提交信息 :wq
+
 git rebase --abort 来撤销修改
 
 ------------------> 6 git 版本回退 <-----------------------
